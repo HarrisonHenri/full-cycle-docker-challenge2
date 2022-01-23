@@ -1,0 +1,46 @@
+version: '3'
+
+services: 
+  fullcycledockerapp:
+    container_name: fullcycledockerapp
+    build:
+      context: ./node
+    entrypoint: dockerize -wait tcp://fullcycledb:3306 -timeout 40s node index.js 
+      - ./node:/app/
+    tty: true
+    depends_on:
+      - fullcycledb
+    networks:
+      - apphost
+      
+  fullcycledb:
+    image: mysql:5.7
+    container_name: fullcycledb
+    command: --innodb-use-native-aio=0
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql/mysql:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql  
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - apphost
+
+  fullcyclenginx:
+    container_name: fullcyclenginx
+    build:
+      context: ./nginx
+    entrypoint: dockerize -wait http://fullcycledockerapp:3000 -timeout 40s nginx -g 'daemon off;'
+    tty: true
+    ports:
+      - "8080:80"
+    networks:
+      - apphost
+    depends_on:
+      - fullcycledockerapp
+
+networks:
+  apphost:
+    driver: bridge

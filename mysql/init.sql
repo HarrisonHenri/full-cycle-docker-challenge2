@@ -1,0 +1,17 @@
+USE nodedb;
+DROP TABLE IF EXISTS PEOPLE;
+CREATE TABLE PEOPLE(
+  id integer auto_increment,
+  name varchar(255),
+  primary key(id)
+);
+INSERT INTO PEOPLE (name) VALUES('Name 1');
+INSERT INTO PEOPLE (name) VALUES('Name 2');
+INSERT INTO PEOPLE (name) VALUES('Name 3');
+INSERT INTO PEOPLE (name) VALUES('Name 4');
+INSERT INTO PEOPLE (name) VALUES('Name 5');
+INSERT INTO PEOPLE (name) VALUES('Name 6');
+INSERT INTO PEOPLE (name) VALUES('Name 7');
+INSERT INTO PEOPLE (name) VALUES('Name 8');
+INSERT INTO PEOPLE (name) VALUES('Name 9');
+INSERT INTO PEOPLE (name) VALUES('Name 10');
