@@ -12,6 +12,7 @@ const connection = mysql.createConnection(config)
 
 
 app.get('/', (_,res) => {
+  insertRandomName();
   seletctNames(res);
 })
 
@@ -28,6 +29,12 @@ function seletctNames(res){
     response += "</ul>";
     res.send(response);
   });
+}
+
+function insertRandomName(){
+  const sql = `INSERT INTO PEOPLE (name) VALUES('Name '${Math.random()*100000})`;
+
+  connection.query(sql);
 }
 
 app.listen(port, ()=> {
