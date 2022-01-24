@@ -32,7 +32,8 @@ function seletctNames(res){
 }
 
 function insertRandomName(){
-  const sql = `INSERT INTO PEOPLE (name) VALUES('Name '${Math.random()*100000})`;
+  const sql = `INSERT INTO PEOPLE (name) VALUES('Name ${Math.round(Math.random()*100000)}')`;
+  console.log(sql);
 
   connection.query(sql);
 }
